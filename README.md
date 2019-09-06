@@ -4,6 +4,6 @@ Matching Network (MN) is a well-known solution for the case. The idea is that th
 
 Matlab plays control and verification roles. HFSS will check EM perfomance of designs. Optenni Lab provided optimal MN for each design. 
 
-The work has been finialised with a submission on EuCAP 2019 Conference. More details of the publication can be seen in "Submission" folder.
+The work has been finialised with a submission on EuCAP 2019 Conference. More details of the publication can be seen in "submission" folder.
 
 https://hal.archives-ouvertes.fr/hal-01963416/fr
