@@ -1,0 +1,36 @@
+v0.4 (06-October-2014)
+[Nothing lasts forever]
+    - Added new function hfssSweepAlongVector.
+    - Added hfssAssignLumpedRLC to boundary/ (thanks Pablo).
+    - Added option to clone parts in hfssSubstract.
+    - Added option for closed polylines.
+    - Fixed crash in hfssAssignLumpedRLC (thanks Pablo).
+    - Fixed representation of polylines.
+
+v0.3 (17-September-2013)
+[Better late than never]
+	- Added the following functions to boundary/ (thanks Pablo):
+		hfssAssignMaster(...)
+		hfssAssignSlave(...)
+		hfssAssignFloquetPort(...)
+	- Created global CHANGELOG file.
+	- Added long-missing function hfssCalcStack(...) to fieldsCalculator/.
+	- Added function hfssRemovePaths(...) to root directory.
+	- Added relative path functionality to hfssIncludePaths(...) in root directory.
+	- Fixed and reworked examples files and directories.
+    - Added hfssThickenSheet function to 3dmodeler/ (thanks to Franz Schroeder)
+
+v0.2 (28-May-2013)
+[This is the first version with public download. Sorry for the cryptic changelog.
+If you want to see the exact changes, please check the code until revision 32 at
+http://code.google.com/p/hfss-api/source/list]
+	- Added a bunch of new functions.
+	- Fixed a few bugs.
+
+v0.12 (15-March-2005)
+[Original version taken from:
+https://www.cresis.ku.edu/~rvc/projects/hfssapi/doc/hfss-matlab-api.html]
+	- Added the following functions:
+		hfssSweepAlongAxis(...)
+		hfssSetTransparency(...)
+	- Added a folded dipole example M-file in the examples directory.
