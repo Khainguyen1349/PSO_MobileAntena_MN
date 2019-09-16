@@ -1,40 +1,38 @@
 function fitness = fitness_function(freq, agent,tmpPrjFile, tmpDataFile)
 
 % Set up frequency
-fC = freq(2);
-fLow = freq(1);
-fHigh = freq(3);
-nPoints = freq(4);
+Antenna.fC = freq(2);
+Antenna.fLow = freq(1);
+Antenna.fHigh = freq(3);
+Antenna.nPoints = freq(4);
 
 % mobile antenna parameters
-gndx = 73;
-gndy = 140;
-patchy = 5;
-patchh = 4.5;
+Antenna.gndx = 73;
+Antenna.gndy = 140;
+Antenna.patchy = 5;
+Antenna.patchh = 4.5;
 
-w = 1;
+Antenna.feed_linew = 1;
+Antenna.gapw = 1;
+ 
+Antenna.gnd_clearance = 3;
 
 % Chosing PEC
-PEC = 0;
-
-rx1 = agent(1);
-rx2 = agent(2);
-rgap = agent(3);
+Antenna.PEC = 0;
 
 %processing feeds' positions
-x1 = rx1*(gndx - w)-gndx/2;
-if (gndx - 3*w)*rx2 + w - gndx/2 >= x1
-    x2 = (gndx - 3*w)*rx2 - gndx/2 + 2*w + 0.01;
-else
-    x2 = (gndx - 3*w)*rx2 - gndx/2;
-end
+Antenna.gap_pos = -Antenna.gndx/2 + agent(3)*Antenna.gndx;
+Antenna.feed_pos1 = -Antenna.gndx/2 + Antenna.feed_linew/2 + agent(1)*...
+    (agent(3)*Antenna.gndx - Antenna.gapw/2 - Antenna.feed_linew);
+Antenna.feed_pos2 = Antenna.gap_pos + Antenna.gapw/2 + Antenna.feed_linew/2+...
+    agent(2)*(Antenna.gndx - Antenna.feed_linew/2 - agent(3)*Antenna.gndx - Antenna.gapw/2);
 
-gap = rgap*(gndx - 1);
 
-Optenni_command = strcat('"C:\Program Files (x86)\Optenni\Optenni Lab 4.1\OptenniLab.exe" "',pwd,'\data\tmpData.s2p" -matching "', pwd, '\optenni\matchfile.xml"');
+Optenni_command = strcat('"C:\Program Files (x86)\Optenni\Optenni Lab 4.1\OptenniLab.exe" "',...
+    pwd,'\data\tmpData.s2p" -matching "', pwd, '\optenni\matchfile.xml"');
 
 % Creating VB Script file and launch HFSS simulation
-VBS_creation_coupling(gndx,gndy,patchy,patchh, x1, x2,w,gap,fC,fLow,fHigh,nPoints,tmpPrjFile, tmpDataFile, PEC)
+VBS_creation_coupling(Antenna,tmpPrjFile, tmpDataFile)
 vbsfile = [pwd, '\mobile.vbs'];
 Status1 = hfssExecuteScript('C:\"Program Files"\AnsysEM\AnsysEM18.2\Win64\ansysedt.exe',  vbsfile, true,true);
 
@@ -70,5 +68,3 @@ end
 
 fprintf('fitness: %f \n', fitness);
 clearvars filename delimiter startRow endRow formatSpec fileID dataArray ans;
-
-
