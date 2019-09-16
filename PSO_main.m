@@ -18,12 +18,22 @@ log_pbest = fopen(logPbestFile,'w');
 log_gbest = fopen(logGbestFile,'w');
 log_pfitness = fopen(logPfitnessFile,'w');
 
+%Generate Matchfile for Optenni Lab
+genMatch;
+addpath(genpath(strcat(pwd,'\optenni')));
+savepath;
+
+%Add HFSS interface lib
+addpath(genpath(strcat(pwd,'\hfss-api-master')));
+savepath;
+
 %% Parameters to change here
 % General parameters of PSO are defined here:
-w = 0.7; 
+w = 1; 
 c1 = 1.49; %personal
 c2 = 1.49; %global
 max_iter = 100;% maximun number of iteration?
+ConvergenceThreshold = 0.2;
 
 % Set up frequency [Start Center Stop Steps]
 freq = [6e8 9e8 3e9 121];
@@ -131,8 +141,8 @@ for loop = 1:max_iter
     fprintf(log_pfitness,'Iteration %f \n', loop);
     fprintf('Iteration %f \n', loop);
     k = k + 1;
-    %w = 0.4 +(1 - gbest(loop))*0.5;
-    if (gbest(loop) > 0.95)||(sum(sum(agent_velocity.^2)) < 0.3)
+    w = 0.4 +(1 - gbest(loop))*0.5;
+    if (gbest(loop) > 0.95)||(sum(sum(agent_velocity.^2)) < ConvergenceThreshold)
         converge_flag = 1;
         fprintf('Converged! Haha!!!');
         fprintf(log,'Converged! Haha!!!');
